@@ -1,0 +1,1125 @@
+﻿```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba de Lenguaje - 8vo Básico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Comic+Neue:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .comic-font {
+            font-family: 'Comic Neue', cursive;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+        }
+        
+        .card-shadow {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .timer-animation {
+            animation: pulse 1s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.05); }
+        }
+        
+        .progress-bar {
+            transition: width 0.5s ease-in-out;
+        }
+        
+        .question-card {
+            transition: all 0.3s ease;
+        }
+        
+        .question-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .correct-answer {
+            background-color: #d1fae5 !important;
+            border-color: #10b981 !important;
+        }
+        
+        .incorrect-answer {
+            background-color: #fee2e2 !important;
+            border-color: #ef4444 !important;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .bounce {
+            animation: bounce 0.5s ease;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenedor principal -->
+    <div class="min-h-screen flex flex-col">
+        <!-- Encabezado -->
+        <header class="gradient-bg text-white py-4 px-6 shadow-lg">
+            <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <i class="fas fa-book-open text-3xl mr-3"></i>
+                    <h1 class="text-2xl font-bold comic-font">Prueba de Lenguaje 8vo Básico</h1>
+                </div>
+                <div class="flex items-center">
+                    <div class="bg-white/20 rounded-lg px-4 py-2 mr-4">
+                        <i class="fas fa-user-graduate mr-2"></i>
+                        <span id="student-name-display">No registrado</span>
+                    </div>
+                    <div class="text-sm">
+                        <i class="far fa-clock mr-1"></i>
+                        <span id="current-time">--:--</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Contenido principal con múltiples pantallas -->
+        <main class="flex-grow container mx-auto px-4 py-8">
+            <!-- Pantalla de registro -->
+            <section id="registration-screen" class="max-w-2xl mx-auto bg-white rounded-xl card-shadow p-8 fade-in">
+                <div class="text-center mb-8">
+                    <i class="fas fa-user-edit text-6xl text-blue-500 mb-4"></i>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Registro del Alumno</h2>
+                    <p class="text-gray-600">Ingresa tus datos para comenzar la prueba de lenguaje</p>
+                </div>
+                
+                <form id="registration-form" class="space-y-6">
+                    <div>
+                        <label for="student-name" class="block text-lg font-medium text-gray-700 mb-2">
+                            <i class="fas fa-user mr-2"></i>Nombre Completo
+                        </label>
+                        <input type="text" id="student-name" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                               placeholder="Ej: Juan Pérez González">
+                    </div>
+                    
+                    <div>
+                        <label for="student-rut" class="block text-lg font-medium text-gray-700 mb-2">
+                            <i class="fas fa-id-card mr-2"></i>RUT (Opcional)
+                        </label>
+                        <input type="text" id="student-rut" 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                               placeholder="Ej: 12.345.678-9">
+                    </div>
+                    
+                    <div>
+                        <label for="student-course" class="block text-lg font-medium text-gray-700 mb-2">
+                            <i class="fas fa-users mr-2"></i>Curso
+                        </label>
+                        <select id="student-course" required 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                            <option value="" disabled selected>Selecciona tu curso</option>
+                            <option value="8vo A">8vo A</option>
+                            <option value="8vo B">8vo B</option>
+                            <option value="8vo C">8vo C</option>
+                            <option value="8vo D">8vo D</option>
+                        </select>
+                    </div>
+                    
+                    <div class="pt-4">
+                        <button type="submit" 
+                                class="w-full gradient-bg text-white font-bold py-4 px-6 rounded-lg text-lg hover:opacity-90 transition duration-300 flex items-center justify-center">
+                            <i class="fas fa-play-circle mr-3"></i> Comenzar Prueba
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="mt-8 p-6 bg-blue-50 rounded-lg border border-blue-200">
+                    <h3 class="font-bold text-blue-800 text-lg mb-2"><i class="fas fa-info-circle mr-2"></i>Instrucciones de la prueba:</h3>
+                    <ul class="text-blue-700 space-y-1">
+                        <li><i class="fas fa-check-circle mr-2 text-green-500"></i>15 preguntas de lenguaje (comprensión lectora, ortografía y más)</li>
+                        <li><i class="fas fa-clock mr-2 text-yellow-500"></i>Tienes 1 minuto para responder cada pregunta</li>
+                        <li><i class="fas fa-calculator mr-2 text-purple-500"></i>La nota máxima es 7.0 (con 100% de respuestas correctas)</li>
+                        <li><i class="fas fa-save mr-2 text-green-500"></i>Tu resultado se guardará automáticamente al finalizar</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Pantalla de prueba (oculta inicialmente) -->
+            <section id="test-screen" class="hidden">
+                <!-- Barra de progreso y temporizador -->
+                <div class="bg-white rounded-xl card-shadow p-6 mb-6">
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <div class="mb-4 md:mb-0">
+                            <h2 class="text-xl font-bold text-gray-800">Prueba de Lenguaje en Curso</h2>
+                            <p class="text-gray-600">Estudiante: <span id="current-student" class="font-semibold"></span></p>
+                        </div>
+                        
+                        <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
+                            <!-- Temporizador -->
+                            <div class="bg-red-50 border border-red-200 rounded-lg px-6 py-3 flex items-center">
+                                <i class="fas fa-hourglass-half text-red-500 text-2xl mr-3"></i>
+                                <div>
+                                    <p class="text-sm text-red-600">Tiempo restante</p>
+                                    <p id="timer" class="text-2xl font-bold text-red-700">01:00</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Progreso -->
+                            <div>
+                                <p class="text-sm text-gray-600 mb-1">Progreso: <span id="current-question-number">1</span>/15</p>
+                                <div class="w-64 bg-gray-200 rounded-full h-3">
+                                    <div id="progress-bar" class="gradient-bg h-3 rounded-full progress-bar" style="width: 6.66%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contenedor de preguntas -->
+                <div id="questions-container" class="space-y-8">
+                    <!-- Las preguntas se insertarán aquí dinámicamente -->
+                </div>
+                
+                <!-- Navegación entre preguntas -->
+                <div class="flex justify-between mt-10">
+                    <button id="prev-question" 
+                            class="px-6 py-3 bg-gray-300 text-gray-800 font-medium rounded-lg hover:bg-gray-400 transition flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
+                            disabled>
+                        <i class="fas fa-arrow-left mr-2"></i> Pregunta Anterior
+                    </button>
+                    
+                    <div class="flex space-x-4">
+                        <button id="skip-question" 
+                                class="px-6 py-3 bg-yellow-500 text-white font-medium rounded-lg hover:bg-yellow-600 transition flex items-center">
+                            <i class="fas fa-forward mr-2"></i> Omitir
+                        </button>
+                        
+                        <button id="next-question" 
+                                class="px-6 py-3 gradient-bg text-white font-medium rounded-lg hover:opacity-90 transition flex items-center">
+                            Siguiente Pregunta <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pantalla de resultados (oculta inicialmente) -->
+            <section id="results-screen" class="max-w-4xl mx-auto hidden fade-in">
+                <div class="text-center mb-8">
+                    <div class="inline-block p-6 rounded-full bg-gradient-to-r from-green-400 to-blue-500 mb-6 bounce">
+                        <i class="fas fa-trophy text-6xl text-white"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Resultados de la Prueba</h2>
+                    <p class="text-gray-600">¡Has completado la prueba de lenguaje!</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                    <!-- Tarjeta de nota -->
+                    <div class="bg-white rounded-xl card-shadow p-6 flex flex-col items-center justify-center">
+                        <div class="text-5xl font-bold text-blue-600 mb-2" id="final-grade">7.0</div>
+                        <p class="text-lg font-semibold text-gray-700">Nota Final</p>
+                        <div class="mt-4 w-24 h-1 gradient-bg rounded-full"></div>
+                    </div>
+                    
+                    <!-- Tarjeta de porcentaje -->
+                    <div class="bg-white rounded-xl card-shadow p-6 flex flex-col items-center justify-center">
+                        <div class="text-5xl font-bold text-green-600 mb-2" id="percentage">100%</div>
+                        <p class="text-lg font-semibold text-gray-700">Porcentaje Logrado</p>
+                        <div class="mt-4 w-24 h-1 bg-green-500 rounded-full"></div>
+                    </div>
+                    
+                    <!-- Tarjeta de preguntas correctas -->
+                    <div class="bg-white rounded-xl card-shadow p-6 flex flex-col items-center justify-center">
+                        <div class="text-5xl font-bold text-purple-600 mb-2">
+                            <span id="correct-answers">15</span>/15
+                        </div>
+                        <p class="text-lg font-semibold text-gray-700">Respuestas Correctas</p>
+                        <div class="mt-4 w-24 h-1 bg-purple-500 rounded-full"></div>
+                    </div>
+                </div>
+                
+                <!-- Detalles del resultado -->
+                <div class="bg-white rounded-xl card-shadow p-8 mb-8">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                        <i class="fas fa-clipboard-list mr-3 text-blue-500"></i> Detalles del Resultado
+                    </h3>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="py-3 px-4 font-semibold text-gray-700">Estudiante</th>
+                                    <th class="py-3 px-4 font-semibold text-gray-700">Curso</th>
+                                    <th class="py-3 px-4 font-semibold text-gray-700">Nota</th>
+                                    <th class="py-3 px-4 font-semibold text-gray-700">Porcentaje</th>
+                                    <th class="py-3 px-4 font-semibold text-gray-700">Fecha y Hora</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="current-result-row" class="border-b border-gray-100">
+                                    <td class="py-3 px-4" id="result-student">Juan Pérez González</td>
+                                    <td class="py-3 px-4" id="result-course">8vo A</td>
+                                    <td class="py-3 px-4 font-bold" id="result-grade">7.0</td>
+                                    <td class="py-3 px-4" id="result-percentage">100%</td>
+                                    <td class="py-3 px-4" id="result-date">01/01/2023 10:30 AM</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Historial de resultados (almacenado en localStorage) -->
+                    <div class="mt-10">
+                        <h4 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-history mr-3 text-gray-500"></i> Historial de Pruebas
+                        </h4>
+                        <div class="bg-gray-50 rounded-lg p-4 max-h-64 overflow-y-auto">
+                            <table class="w-full text-sm" id="results-history">
+                                <thead>
+                                    <tr class="text-gray-600 border-b">
+                                        <th class="py-2 px-2 text-left">Estudiante</th>
+                                        <th class="py-2 px-2 text-left">Nota</th>
+                                        <th class="py-2 px-2 text-left">%</th>
+                                        <th class="py-2 px-2 text-left">Fecha</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="history-body">
+                                    <!-- Los resultados históricos se cargarán aquí -->
+                                </tbody>
+                            </table>
+                            <p id="no-history-message" class="text-gray-500 text-center py-4">No hay pruebas anteriores registradas.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-6">
+                    <button id="restart-test" 
+                            class="px-8 py-4 gradient-bg text-white font-bold rounded-lg hover:opacity-90 transition flex items-center justify-center text-lg">
+                        <i class="fas fa-redo mr-3"></i> Realizar Otra Prueba
+                    </button>
+                    
+                    <button id="download-results" 
+                            class="px-8 py-4 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 transition flex items-center justify-center text-lg">
+                        <i class="fas fa-download mr-3"></i> Descargar Resultados
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Pie de página -->
+        <footer class="bg-gray-800 text-white py-6 mt-8">
+            <div class="container mx-auto px-4 text-center">
+                <p class="text-lg font-medium mb-2">Prueba de Lenguaje para 8vo Básico</p>
+                <p class="text-gray-300">WebApp Educativa &copy; <span id="current-year">2023</span> - Evaluación de Comprensión Lectora, Ortografía y Puntuación</p>
+                <div class="mt-4 flex justify-center space-x-6">
+                    <a href="#" class="text-gray-300 hover:text-white transition"><i class="fas fa-graduation-cap"></i> Educativo</a>
+                    <a href="#" class="text-gray-300 hover:text-white transition"><i class="fas fa-clock"></i> Cronometrado</a>
+                    <a href="#" class="text-gray-300 hover:text-white transition"><i class="fas fa-chart-bar"></i> Evaluación Automática</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Script principal -->
+    <script>
+        // Configuración de la aplicación
+        const App = {
+            // Estado de la aplicación
+            currentStudent: null,
+            currentCourse: null,
+            currentQuestion: 0,
+            timer: null,
+            timeLeft: 60, // 1 minuto por pregunta
+            answers: new Array(15).fill(null),
+            resultsHistory: [],
+            
+            // Preguntas de la prueba (15 preguntas)
+            questions: [
+                {
+                    id: 1,
+                    type: "multiple-choice",
+                    category: "Comprensión Lectora",
+                    text: "Lee el siguiente texto: 'María caminaba por el parque cuando de repente vio un perrito perdido. Se acercó cuidadosamente y notó que tenía una placa con un número telefónico. Decidió llamar de inmediato para ayudar al animalito a regresar con su dueño.' ¿Cuál es la idea principal del texto?",
+                    options: [
+                        "María no le gustan los perros",
+                        "María encuentra un perro perdido y busca ayudarlo",
+                        "Los perros siempre se pierden en el parque",
+                        "María prefiere los gatos a los perros"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    id: 2,
+                    type: "fill-blank",
+                    category: "Ortografía",
+                    text: "Completa la palabra correctamente: 'El ______ del río era muy tranquilo.'",
+                    hint: "Se refiere al movimiento del agua",
+                    correctAnswer: "caudal"
+                },
+                {
+                    id: 3,
+                    type: "sentence-completion",
+                    category: "Ortografía y Puntuación",
+                    text: "Completa la oración con la palabra correcta: 'El profesor nos pidió que ______ el libro para la próxima clase.'",
+                    options: ["leyéramos", "leyeramos", "leieramos", "leyerámos"],
+                    correctAnswer: 0
+                },
+                {
+                    id: 4,
+                    type: "multiple-choice",
+                    category: "Separación de Sílabas",
+                    text: "¿Cuál es la separación correcta en sílabas de la palabra 'automóvil'?",
+                    options: [
+                        "au-to-mó-vil",
+                        "a-u-to-mó-vil", 
+                        "au-tomó-vil",
+                        "au-to-móvil"
+                    ],
+                    correctAnswer: 0
+                },
+                {
+                    id: 5,
+                    type: "development",
+                    category: "Comprensión Lectora",
+                    text: "Explica con tus palabras qué es la sinonimia y da dos ejemplos.",
+                    hint: "Recuerda que los sinónimos son palabras con significado similar",
+                    keywords: ["palabras", "significado similar", "ejemplos", "sinónimos"]
+                },
+                {
+                    id: 6,
+                    type: "multiple-choice",
+                    category: "Puntuación",
+                    text: "Selecciona la oración que usa correctamente la coma:",
+                    options: [
+                        "Juan, María y Pedro fueron al cine",
+                        "Juan María y Pedro fueron al cine",
+                        "Juan, María, y Pedro fueron al cine",
+                        "Juan María, y Pedro fueron al cine"
+                    ],
+                    correctAnswer: 0
+                },
+                {
+                    id: 7,
+                    type: "fill-blank",
+                    category: "Ortografía",
+                    text: "Completa la palabra correctamente: 'El ______ es el conjunto de reglas para escribir correctamente.'",
+                    hint: "Se refiere a la correcta escritura de las palabras",
+                    correctAnswer: "ortografía"
+                },
+                {
+                    id: 8,
+                    type: "sentence-completion",
+                    category: "Comprensión Lectora",
+                    text: "Completa la oración: 'Si estudias con dedicación, ______ buenos resultados en la prueba.'",
+                    options: ["obtendrás", "obtendras", "obtendrá", "obtendra"],
+                    correctAnswer: 0
+                },
+                {
+                    id: 9,
+                    type: "multiple-choice",
+                    category: "Separación de Sílabas",
+                    text: "¿Cuántas sílabas tiene la palabra 'extraordinario'?",
+                    options: ["5", "6", "7", "8"],
+                    correctAnswer: 1
+                },
+                {
+                    id: 10,
+                    type: "development",
+                    category: "Comprensión Lectora",
+                    text: "Explica qué es una metáfora y da un ejemplo.",
+                    hint: "La metáfora es una figura retórica que establece una relación de semejanza",
+                    keywords: ["figura retórica", "comparación", "ejemplo", "semejanza"]
+                },
+                {
+                    id: 11,
+                    type: "multiple-choice",
+                    category: "Ortografía",
+                    text: "Selecciona la opción correctamente escrita:",
+                    options: [
+                        "Habían muchas personas en la fiesta",
+                        "Había muchas personas en la fiesta",
+                        "Habián muchas personas en la fiesta", 
+                        "Havia muchas personas en la fiesta"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    id: 12,
+                    type: "fill-blank",
+                    category: "Puntuación",
+                    text: "Completa la oración con los signos de puntuación correctos: '¡______ increíble!' exclamó Ana.",
+                    hint: "Es una expresión de sorpresa",
+                    correctAnswer: "Qué"
+                },
+                {
+                    id: 13,
+                    type: "multiple-choice",
+                    category: "Separación de Sílabas",
+                    text: "¿Cuál es la sílaba tónica de la palabra 'árbol'?",
+                    options: ["ar", "bol", "ár", "árbol"],
+                    correctAnswer: 2
+                },
+                {
+                    id: 14,
+                    type: "sentence-completion",
+                    category: "Comprensión Lectora",
+                    text: "Completa la oración: 'El cuento que leímos tenía un personaje principal muy ______.'",
+                    options: ["interesante", "interesante", "interezante", "interesante"],
+                    correctAnswer: 1
+                },
+                {
+                    id: 15,
+                    type: "development",
+                    category: "Ortografía y Puntuación",
+                    text: "Escribe una oración que incluya: una coma enumerativa, un punto y seguido, y un adjetivo calificativo.",
+                    hint: "Ejemplo: Compré manzanas, peras y naranjas, luego fui a casa.",
+                    keywords: ["coma", "punto", "adjetivo"]
+                }
+            ],
+            
+            // Inicialización de la aplicación
+            init() {
+                this.setupEventListeners();
+                this.loadResultsHistory();
+                this.updateCurrentTime();
+                setInterval(() => this.updateCurrentTime(), 1000);
+                document.getElementById('current-year').textContent = new Date().getFullYear();
+            },
+            
+            // Configurar los event listeners
+            setupEventListeners() {
+                // Formulario de registro
+                document.getElementById('registration-form').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.startTest();
+                });
+                
+                // Navegación entre preguntas
+                document.getElementById('next-question').addEventListener('click', () => {
+                    this.saveCurrentAnswer();
+                    this.nextQuestion();
+                });
+                
+                document.getElementById('prev-question').addEventListener('click', () => {
+                    this.saveCurrentAnswer();
+                    this.prevQuestion();
+                });
+                
+                document.getElementById('skip-question').addEventListener('click', () => {
+                    this.saveCurrentAnswer();
+                    this.nextQuestion();
+                });
+                
+                // Botones de resultados
+                document.getElementById('restart-test').addEventListener('click', () => {
+                    this.restartTest();
+                });
+                
+                document.getElementById('download-results').addEventListener('click', () => {
+                    this.downloadResults();
+                });
+            },
+            
+            // Comenzar la prueba
+            startTest() {
+                const studentName = document.getElementById('student-name').value;
+                const studentCourse = document.getElementById('student-course').value;
+                
+                if (!studentName || !studentCourse) {
+                    alert('Por favor completa todos los campos obligatorios');
+                    return;
+                }
+                
+                this.currentStudent = studentName;
+                this.currentCourse = studentCourse;
+                
+                // Actualizar pantalla
+                document.getElementById('student-name-display').textContent = studentName;
+                document.getElementById('current-student').textContent = studentName;
+                
+                // Ocultar pantalla de registro y mostrar prueba
+                document.getElementById('registration-screen').classList.add('hidden');
+                document.getElementById('test-screen').classList.remove('hidden');
+                
+                // Inicializar respuestas
+                this.answers = new Array(15).fill(null);
+                
+                // Mostrar primera pregunta
+                this.showQuestion(0);
+                
+                // Iniciar temporizador para la primera pregunta
+                this.startTimer();
+            },
+            
+            // Mostrar pregunta específica
+            showQuestion(index) {
+                this.currentQuestion = index;
+                const question = this.questions[index];
+                const container = document.getElementById('questions-container');
+                
+                // Actualizar número de pregunta y progreso
+                document.getElementById('current-question-number').textContent = index + 1;
+                const progressPercent = ((index + 1) / 15) * 100;
+                document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+                
+                // Habilitar/deshabilitar botones de navegación
+                document.getElementById('prev-question').disabled = index === 0;
+                
+                // Generar HTML de la pregunta según su tipo
+                let questionHTML = `
+                    <div class="question-card bg-white rounded-xl card-shadow p-6 fade-in">
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <span class="inline-block px-4 py-1 bg-blue-100 text-blue-800 rounded-full font-medium text-sm">Pregunta ${index + 1}/15</span>
+                                <span class="inline-block ml-2 px-4 py-1 bg-purple-100 text-purple-800 rounded-full font-medium text-sm">${question.category}</span>
+                            </div>
+                            <div class="text-sm text-gray-500">
+                                <i class="fas fa-stopwatch mr-1"></i> ${this.getQuestionTypeName(question.type)}
+                            </div>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold text-gray-800 mb-6">${question.text}</h3>
+                `;
+                
+                // Generar contenido según el tipo de pregunta
+                if (question.type === 'multiple-choice') {
+                    questionHTML += this.generateMultipleChoiceHTML(question, index);
+                } else if (question.type === 'fill-blank') {
+                    questionHTML += this.generateFillBlankHTML(question, index);
+                } else if (question.type === 'sentence-completion') {
+                    questionHTML += this.generateSentenceCompletionHTML(question, index);
+                } else if (question.type === 'development') {
+                    questionHTML += this.generateDevelopmentHTML(question, index);
+                }
+                
+                questionHTML += `</div>`;
+                
+                container.innerHTML = questionHTML;
+                
+                // Restaurar respuesta previa si existe
+                this.restoreAnswer(index);
+                
+                // Reiniciar temporizador
+                this.resetTimer();
+            },
+            
+            // Generar HTML para pregunta de opción múltiple
+            generateMultipleChoiceHTML(question, index) {
+                let optionsHTML = '<div class="space-y-4">';
+                
+                question.options.forEach((option, optIndex) => {
+                    optionsHTML += `
+                        <div class="option-item p-4 border border-gray-300 rounded-lg hover:bg-blue-50 cursor-pointer transition" data-index="${optIndex}">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 flex items-center justify-center rounded-full border border-gray-400 mr-4 option-indicator">
+                                    ${String.fromCharCode(65 + optIndex)}
+                                </div>
+                                <span>${option}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                optionsHTML += '</div>';
+                
+                return optionsHTML;
+            },
+            
+            // Generar HTML para completar espacios
+            generateFillBlankHTML(question, index) {
+                return `
+                    <div class="space-y-4">
+                        <div class="mb-4">
+                            <p class="text-gray-600 mb-2"><i class="fas fa-lightbulb mr-2"></i>Pista: ${question.hint}</p>
+                        </div>
+                        <div>
+                            <input type="text" id="fill-blank-${index}" 
+                                   class="w-full md:w-1/2 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-lg"
+                                   placeholder="Escribe tu respuesta aquí">
+                        </div>
+                    </div>
+                `;
+            },
+            
+            // Generar HTML para completar oración
+            generateSentenceCompletionHTML(question, index) {
+                let optionsHTML = '<div class="space-y-4">';
+                
+                question.options.forEach((option, optIndex) => {
+                    optionsHTML += `
+                        <div class="option-item p-4 border border-gray-300 rounded-lg hover:bg-blue-50 cursor-pointer transition" data-index="${optIndex}">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 flex items-center justify-center rounded-full border border-gray-400 mr-4 option-indicator">
+                                    ${String.fromCharCode(65 + optIndex)}
+                                </div>
+                                <span>${option}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                optionsHTML += '</div>';
+                
+                return optionsHTML;
+            },
+            
+            // Generar HTML para pregunta de desarrollo
+            generateDevelopmentHTML(question, index) {
+                return `
+                    <div class="space-y-4">
+                        <div class="mb-4">
+                            <p class="text-gray-600 mb-2"><i class="fas fa-lightbulb mr-2"></i>Pista: ${question.hint}</p>
+                        </div>
+                        <div>
+                            <textarea id="development-${index}" 
+                                      rows="6"
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                                      placeholder="Escribe tu respuesta aquí..."></textarea>
+                        </div>
+                        <div class="text-sm text-gray-500">
+                            <i class="fas fa-info-circle mr-1"></i> Esta pregunta será evaluada por palabras clave.
+                        </div>
+                    </div>
+                `;
+            },
+            
+            // Obtener nombre del tipo de pregunta
+            getQuestionTypeName(type) {
+                const types = {
+                    'multiple-choice': 'Opción Múltiple',
+                    'fill-blank': 'Completar Espacios',
+                    'sentence-completion': 'Completar Oración',
+                    'development': 'Desarrollo'
+                };
+                
+                return types[type] || type;
+            },
+            
+            // Guardar respuesta actual
+            saveCurrentAnswer() {
+                const question = this.questions[this.currentQuestion];
+                let answer = null;
+                
+                if (question.type === 'multiple-choice' || question.type === 'sentence-completion') {
+                    const selectedOption = document.querySelector('.option-item.selected');
+                    if (selectedOption) {
+                        answer = parseInt(selectedOption.getAttribute('data-index'));
+                    }
+                } else if (question.type === 'fill-blank') {
+                    const input = document.getElementById(`fill-blank-${this.currentQuestion}`);
+                    answer = input ? input.value.trim() : null;
+                } else if (question.type === 'development') {
+                    const textarea = document.getElementById(`development-${this.currentQuestion}`);
+                    answer = textarea ? textarea.value.trim() : null;
+                }
+                
+                this.answers[this.currentQuestion] = answer;
+            },
+            
+            // Restaurar respuesta guardada
+            restoreAnswer(index) {
+                const savedAnswer = this.answers[index];
+                if (savedAnswer === null) return;
+                
+                const question = this.questions[index];
+                
+                if (question.type === 'multiple-choice' || question.type === 'sentence-completion') {
+                    const optionItems = document.querySelectorAll('.option-item');
+                    optionItems.forEach(item => {
+                        if (parseInt(item.getAttribute('data-index')) === savedAnswer) {
+                            item.classList.add('selected', 'bg-blue-100', 'border-blue-500');
+                            item.querySelector('.option-indicator').classList.add('bg-blue-500', 'text-white');
+                        }
+                    });
+                } else if (question.type === 'fill-blank') {
+                    const input = document.getElementById(`fill-blank-${index}`);
+                    if (input) input.value = savedAnswer;
+                } else if (question.type === 'development') {
+                    const textarea = document.getElementById(`development-${index}`);
+                    if (textarea) textarea.value = savedAnswer;
+                }
+            },
+            
+            // Pregunta siguiente
+            nextQuestion() {
+                if (this.currentQuestion < 14) {
+                    this.showQuestion(this.currentQuestion + 1);
+                    this.startTimer();
+                } else {
+                    this.finishTest();
+                }
+            },
+            
+            // Pregunta anterior
+            prevQuestion() {
+                if (this.currentQuestion > 0) {
+                    this.showQuestion(this.currentQuestion - 1);
+                    this.startTimer();
+                }
+            },
+            
+            // Temporizador
+            startTimer() {
+                this.resetTimer();
+                
+                this.timer = setInterval(() => {
+                    this.timeLeft--;
+                    document.getElementById('timer').textContent = this.formatTime(this.timeLeft);
+                    
+                    // Cambiar color cuando queden 10 segundos
+                    if (this.timeLeft <= 10) {
+                        document.getElementById('timer').classList.add('timer-animation');
+                        document.getElementById('timer').classList.remove('text-red-700');
+                        document.getElementById('timer').classList.add('text-red-800');
+                    }
+                    
+                    // Tiempo agotado
+                    if (this.timeLeft <= 0) {
+                        clearInterval(this.timer);
+                        this.saveCurrentAnswer();
+                        this.nextQuestion();
+                    }
+                }, 1000);
+            },
+            
+            // Reiniciar temporizador
+            resetTimer() {
+                if (this.timer) {
+                    clearInterval(this.timer);
+                }
+                this.timeLeft = 60;
+                document.getElementById('timer').textContent = this.formatTime(this.timeLeft);
+                document.getElementById('timer').classList.remove('timer-animation', 'text-red-800');
+                document.getElementById('timer').classList.add('text-red-700');
+            },
+            
+            // Formatear tiempo (MM:SS)
+            formatTime(seconds) {
+                const mins = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+                return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            },
+            
+            // Finalizar prueba y mostrar resultados
+            finishTest() {
+                clearInterval(this.timer);
+                
+                // Calcular resultados
+                const results = this.calculateResults();
+                
+                // Mostrar pantalla de resultados
+                document.getElementById('test-screen').classList.add('hidden');
+                document.getElementById('results-screen').classList.remove('hidden');
+                
+                // Mostrar resultados
+                document.getElementById('final-grade').textContent = results.grade.toFixed(1);
+                document.getElementById('percentage').textContent = `${results.percentage}%`;
+                document.getElementById('correct-answers').textContent = results.correctAnswers;
+                document.getElementById('result-student').textContent = this.currentStudent;
+                document.getElementById('result-course').textContent = this.currentCourse;
+                document.getElementById('result-grade').textContent = results.grade.toFixed(1);
+                document.getElementById('result-percentage').textContent = `${results.percentage}%`;
+                
+                // Fecha y hora actual
+                const now = new Date();
+                const formattedDate = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth()+1).toString().padStart(2, '0')}/${now.getFullYear()} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+                document.getElementById('result-date').textContent = formattedDate;
+                
+                // Guardar resultado en historial
+                this.saveResultToHistory(results, formattedDate);
+            },
+            
+            // Calcular resultados
+            calculateResults() {
+                let correctAnswers = 0;
+                
+                this.answers.forEach((answer, index) => {
+                    const question = this.questions[index];
+                    
+                    if (question.type === 'multiple-choice' || question.type === 'sentence-completion') {
+                        if (answer === question.correctAnswer) {
+                            correctAnswers++;
+                        }
+                    } else if (question.type === 'fill-blank') {
+                        if (answer && answer.toLowerCase() === question.correctAnswer.toLowerCase()) {
+                            correctAnswers++;
+                        }
+                    } else if (question.type === 'development') {
+                        // Para preguntas de desarrollo, verificamos palabras clave
+                        if (answer) {
+                            const answerLower = answer.toLowerCase();
+                            let keywordMatches = 0;
+                            
+                            question.keywords.forEach(keyword => {
+                                if (answerLower.includes(keyword.toLowerCase())) {
+                                    keywordMatches++;
+                                }
+                            });
+                            
+                            // Consideramos correcta si tiene al menos la mitad de las palabras clave
+                            if (keywordMatches >= Math.ceil(question.keywords.length / 2)) {
+                                correctAnswers++;
+                            }
+                        }
+                    }
+                });
+                
+                const percentage = Math.round((correctAnswers / 15) * 100);
+                // Escala de notas: 7.0 = 100%, 1.0 = 0%
+                const grade = 1.0 + (percentage / 100) * 6.0;
+                
+                return {
+                    correctAnswers,
+                    percentage,
+                    grade
+                };
+            },
+            
+            // Guardar resultado en historial (localStorage)
+            saveResultToHistory(results, dateTime) {
+                const result = {
+                    student: this.currentStudent,
+                    course: this.currentCourse,
+                    grade: results.grade.toFixed(1),
+                    percentage: results.percentage,
+                    dateTime: dateTime,
+                    timestamp: new Date().getTime()
+                };
+                
+                this.resultsHistory.unshift(result); // Agregar al inicio
+                
+                // Mantener solo los últimos 10 resultados
+                if (this.resultsHistory.length > 10) {
+                    this.resultsHistory = this.resultsHistory.slice(0, 10);
+                }
+                
+                // Guardar en localStorage
+                localStorage.setItem('languageTestHistory', JSON.stringify(this.resultsHistory));
+                
+                // Actualizar historial en pantalla
+                this.displayHistory();
+            },
+            
+            // Cargar historial desde localStorage
+            loadResultsHistory() {
+                const savedHistory = localStorage.getItem('languageTestHistory');
+                if (savedHistory) {
+                    this.resultsHistory = JSON.parse(savedHistory);
+                    this.displayHistory();
+                }
+            },
+            
+            // Mostrar historial en pantalla
+            displayHistory() {
+                const historyBody = document.getElementById('history-body');
+                const noHistoryMessage = document.getElementById('no-history-message');
+                
+                if (this.resultsHistory.length === 0) {
+                    noHistoryMessage.classList.remove('hidden');
+                    historyBody.innerHTML = '';
+                    return;
+                }
+                
+                noHistoryMessage.classList.add('hidden');
+                historyBody.innerHTML = '';
+                
+                this.resultsHistory.forEach(result => {
+                    const row = document.createElement('tr');
+                    row.className = 'border-b border-gray-100';
+                    row.innerHTML = `
+                        <td class="py-2 px-2">${result.student}</td>
+                        <td class="py-2 px-2 font-bold">${result.grade}</td>
+                        <td class="py-2 px-2">${result.percentage}%</td>
+                        <td class="py-2 px-2 text-sm">${result.dateTime}</td>
+                    `;
+                    historyBody.appendChild(row);
+                });
+            },
+            
+            // Reiniciar prueba
+            restartTest() {
+                // Limpiar respuestas
+                this.answers = new Array(15).fill(null);
+                this.currentQuestion = 0;
+                
+                // Ocultar resultados y mostrar registro
+                document.getElementById('results-screen').classList.add('hidden');
+                document.getElementById('registration-screen').classList.remove('hidden');
+                
+                // Limpiar formulario de registro
+                document.getElementById('registration-form').reset();
+            },
+            
+            // Descargar resultados
+            downloadResults() {
+                const resultsText = `
+RESULTADO PRUEBA DE LENGUAJE - 8VO BÁSICO
+==========================================
+Estudiante: ${this.currentStudent}
+Curso: ${this.currentCourse}
+Fecha y Hora: ${document.getElementById('result-date').textContent}
+
+RESULTADOS:
+- Nota Final: ${document.getElementById('final-grade').textContent}
+- Porcentaje Logrado: ${document.getElementById('percentage').textContent}
+- Respuestas Correctas: ${document.getElementById('correct-answers').textContent}
+
+¡Felicidades por completar la prueba!
+                `;
+                
+                const blob = new Blob([resultsText], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `resultado_prueba_lenguaje_${this.currentStudent.replace(/\s+/g, '_')}.txt`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            },
+            
+            // Actualizar hora actual
+            updateCurrentTime() {
+                const now = new Date();
+                const timeString = now.toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' });
+                document.getElementById('current-time').textContent = timeString;
+            }
+        };
+        
+        // Inicializar la aplicación cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', () => {
+            App.init();
+            
+            // Configurar interactividad para las opciones de pregunta
+            document.addEventListener('click', (e) => {
+                // Manejar selección de opciones en preguntas múltiples
+                if (e.target.closest('.option-item')) {
+                    const optionItem = e.target.closest('.option-item');
+                    const questionContainer = optionItem.closest('.question-card');
+                    
+                    // Deseleccionar todas las opciones en esta pregunta
+                    questionContainer.querySelectorAll('.option-item').forEach(item => {
+                        item.classList.remove('selected', 'bg-blue-100', 'border-blue-500');
+                        item.querySelector('.option-indicator').classList.remove('bg-blue-500', 'text-white');
+                    });
+                    
+                    // Seleccionar la opción clickeada
+                    optionItem.classList.add('selected', 'bg-blue-100', 'border-blue-500');
+                    optionItem.querySelector('.option-indicator').classList.add('bg-blue-500', 'text-white');
+                    
+                    // Guardar automáticamente la respuesta después de 1 segundo
+                    setTimeout(() => {
+                        App.saveCurrentAnswer();
+                    }, 1000);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+```
+
+## Paso a Paso para Ejecutar la WebApp
+
+Dado que no tienes conocimientos de programación, aquí te explico cómo poner en funcionamiento esta aplicación web educativa:
+
+### Opción 1: Usando XAMPP (Recomendado para pruebas locales)
+
+1. **Instalar XAMPP** (si aún no lo tienes):
+   - Descarga XAMPP desde: https://www.apachefriends.org/es/index.html
+   - Instálalo siguiendo las instrucciones del instalador
+
+2. **Preparar el archivo**:
+   - Copia todo el código HTML proporcionado
+   - Abre el Bloc de notas o cualquier editor de texto
+   - Pega el código y guarda el archivo como `index.html`
+
+3. **Colocar el archivo en XAMPP**:
+   - Ve a la carpeta donde instalaste XAMPP (normalmente `C:\xampp`)
+   - Abre la carpeta `htdocs`
+   - Crea una nueva carpeta llamada `prueba-lenguaje`
+   - Guarda el archivo `index.html` dentro de esa carpeta
+
+4. **Iniciar XAMPP**:
+   - Abre el Panel de Control de XAMPP
+   - Haz clic en "Start" en los módulos Apache y MySQL
+   - Una vez que Apache esté en funcionamiento (se pondrá en verde)
+
+5. **Acceder a la aplicación**:
+   - Abre tu navegador web (Chrome, Firefox, etc.)
+   - Escribe en la barra de direcciones: `http://localhost/prueba-lenguaje/`
+   - ¡La aplicación debería cargarse y estar lista para usar!
+
+### Opción 2: Usando GitHub Pages (para compartir en línea)
+
+1. **Crear un repositorio en GitHub**:
+   - Ve a github.com y crea una cuenta si no tienes una
+   - Crea un nuevo repositorio llamado `prueba-lenguaje-8vo`
+
+2. **Subir el archivo**:
+   - Dentro de tu repositorio, haz clic en "Add file" ? "Upload files"
+   - Sube el archivo `index.html` que creaste
+
+3. **Configurar GitHub Pages**:
+   - Ve a la pestaña "Settings" de tu repositorio
+   - En el menú lateral, busca "Pages"
+   - En "Source", selecciona la rama `main` y la carpeta `/root`
+   - Haz clic en "Save"
+
+4. **Acceder a tu aplicación**:
+   - GitHub te proporcionará una URL (similar a `https://tunombredeusuario.github.io/prueba-lenguaje-8vo/`)
+   - Comparte este enlace con los estudiantes para que puedan realizar la prueba
+
+### Características principales de la WebApp:
+
+1. **Registro de estudiantes**: Los alumnos ingresan su nombre, RUT (opcional) y curso antes de comenzar.
+
+2. **15 preguntas cronometradas**: Cada pregunta tiene un límite de 1 minuto para responder.
+
+3. **Tipos de preguntas variados**:
+   - Opción múltiple
+   - Completar espacios
+   - Completar oración
+   - Preguntas de desarrollo
+
+4. **Evaluación automática**: Calcula la nota basada en el porcentaje de respuestas correctas (7.0 para 100%).
+
+5. **Almacenamiento de resultados**: Guarda los resultados en el navegador del usuario (localStorage).
+
+6. **Interfaz amigable**: Diseño moderno, responsivo y fácil de usar para niños de 8vo básico.
+
+7. **Historial de pruebas**: Muestra los resultados anteriores de cada estudiante.
+
+### Para los estudiantes:
+
+1. Ingresan sus datos en la pantalla de registro
+2. Responden cada pregunta dentro del tiempo límite
+3. Pueden navegar entre preguntas con los botones "Anterior" y "Siguiente"
+4. Al finalizar, ven su nota, porcentaje y respuestas correctas
+5. Los resultados se guardan automáticamente
+
+La aplicación funciona completamente en el navegador, sin necesidad de conexión a internet después de cargada por primera vez.
